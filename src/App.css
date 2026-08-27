@@ -1,0 +1,126 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  font-size: 28px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #2c3e50;
+  letter-spacing: -0.5px;
+}
+
+.cart-trigger-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.3);
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  position: relative;
+}
+
+.cart-trigger-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.cart-trigger-btn:active {
+  transform: scale(0.96);
+}
+
+.cart-badge {
+  background: white;
+  color: var(--primary-color);
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+  flex: 1;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Footer Section */
+.footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-muted);
+  font-size: 13px;
+  border-top: 1px solid var(--border-color);
+  background: white;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 14px 16px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+  }
+  
+  .cart-trigger-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  
+  .main-content {
+    padding: 24px 16px;
+  }
+}
