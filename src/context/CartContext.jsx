@@ -1,15 +1,29 @@
-import React, { createContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 
 export const CartContext = createContext();
 
+const loadFromStorage = (key, defaultValue) => {
+  try {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : defaultValue;
+  } catch {
+    return defaultValue;
+  }
+};
+
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => loadFromStorage('sc_cart', []));
   const [toasts, setToasts] = useState([]);
 
+  // Persist cart to localStorage
+  useEffect(() => {
+    localStorage.setItem('sc_cart', JSON.stringify(cart));
+  }, [cart]);
+
   // Toast Notification Helpers
-  const addToast = useCallback((message) => {
+  const addToast = useCallback((message, type = 'success') => {
     const id = Date.now() + Math.random().toString(36).substr(2, 9);
-    setToasts((prev) => [...prev, { id, message }]);
+    setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 3000);
@@ -32,7 +46,7 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevCart, { product, quantity: 1 }];
     });
-    addToast('Product added to cart');
+    addToast(`${product.name} ditambahkan ke keranjang`);
   }, [addToast]);
 
   const removeFromCart = useCallback((productId) => {
@@ -65,6 +79,10 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
   }, [cart]);
 
+  const isInCart = useCallback((productId) => {
+    return cart.some((item) => item.product.id === productId);
+  }, [cart]);
+
   const value = useMemo(() => ({
     cart,
     toasts,
@@ -74,6 +92,7 @@ export const CartProvider = ({ children }) => {
     clearCart,
     totalQuantity,
     totalPrice,
+    isInCart,
     addToast,
     removeToast
   }), [
@@ -85,6 +104,7 @@ export const CartProvider = ({ children }) => {
     clearCart,
     totalQuantity,
     totalPrice,
+    isInCart,
     addToast,
     removeToast
   ]);
