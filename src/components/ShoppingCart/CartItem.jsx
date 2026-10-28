@@ -10,8 +10,8 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
       <div className="cart-item-details">
         <h5 className="cart-item-name">{product.name}</h5>
         <div className="cart-item-meta">
-          <span className="cart-item-price">NT$ {product.price.toLocaleString()}</span>
-          <span className="cart-item-subtotal">小計: NT$ {subtotal.toLocaleString()}</span>
+          <span className="cart-item-price">Rp {product.price.toLocaleString()}</span>
+          <span className="cart-item-subtotal">Subtotal: Rp {subtotal.toLocaleString()}</span>
         </div>
         <div className="cart-item-controls">
           <div className="quantity-controls">
@@ -19,7 +19,7 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
               className="qty-btn"
               onClick={() => onUpdateQuantity(product.id, -1)}
               disabled={quantity <= 1}
-              aria-label="Decrease quantity"
+              aria-label="Kurangi kuantitas"
             >
               -
             </button>
@@ -27,7 +27,7 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
             <button
               className="qty-btn"
               onClick={() => onUpdateQuantity(product.id, 1)}
-              aria-label="Increase quantity"
+              aria-label="Tambah kuantitas"
             >
               +
             </button>
@@ -35,9 +35,9 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
           <button
             className="remove-item-btn"
             onClick={() => onRemove(product.id)}
-            aria-label={`Remove ${product.name} from cart`}
+            aria-label={`Hapus ${product.name} dari keranjang`}
           >
-            🗑️ 移除
+            🗑️ Hapus
           </button>
         </div>
       </div>
