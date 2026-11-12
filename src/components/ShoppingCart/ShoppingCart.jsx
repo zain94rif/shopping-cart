@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CartItem } from './CartItem';
 import './ShoppingCart.css';
 
@@ -8,18 +7,10 @@ export const ShoppingCart = ({
   onClose,
   cart,
   totalPrice,
-  walletBalance,
   onUpdateQuantity,
   onRemoveItem,
   onCheckout
 }) => {
-  const navigate = useNavigate();
-
-  const handleGoToCheckout = () => {
-    onClose();
-    navigate('/checkout');
-  };
-
   return (
     <>
       <div 
@@ -29,11 +20,11 @@ export const ShoppingCart = ({
       />
       <div className={`cart-sidebar-container ${isOpen ? 'open' : ''}`}>
         <div className="cart-sidebar-header">
-          <h3>Keranjang Belanja</h3>
+          <h3>購物車 (Shopping Cart)</h3>
           <button 
             className="cart-close-btn" 
             onClick={onClose}
-            aria-label="Tutup keranjang"
+            aria-label="Close cart"
           >
             &times;
           </button>
@@ -43,8 +34,8 @@ export const ShoppingCart = ({
           {cart.length === 0 ? (
             <div className="cart-empty-state">
               <span className="cart-empty-icon">🛒</span>
-              <p>Keranjang Anda masih kosong</p>
-              <p className="cart-empty-sub">Silakan tambahkan produk favorit Anda</p>
+              <p>您的購物車是空的</p>
+              <p className="cart-empty-sub">Your cart is empty</p>
             </div>
           ) : (
             <div className="cart-items-list">
@@ -63,33 +54,16 @@ export const ShoppingCart = ({
         {cart.length > 0 && (
           <div className="cart-sidebar-footer">
             <div className="cart-total-section">
-              <span>Total Tagihan:</span>
-              <span className="cart-total-price">Rp {totalPrice.toLocaleString()}</span>
+              <span>總計 (Total):</span>
+              <span className="cart-total-price">NT$ {totalPrice.toLocaleString()}</span>
             </div>
-            {walletBalance !== undefined && (
-              <div className="cart-wallet-info">
-                <span>Saldo Wallet:</span>
-                <span className={walletBalance < totalPrice ? 'insufficient-balance' : 'sufficient-balance'}>
-                  Rp {walletBalance.toLocaleString()}
-                </span>
-              </div>
-            )}
-            <div className="cart-actions-column">
-              <button 
-                className="cart-checkout-btn" 
-                onClick={handleGoToCheckout}
-                disabled={cart.length === 0}
-              >
-                Halaman Checkout ➔
-              </button>
-              <button 
-                className="cart-quickpay-btn" 
-                onClick={onCheckout}
-                disabled={cart.length === 0}
-              >
-                ⚡ Pembayaran Instan
-              </button>
-            </div>
+            <button 
+              className="cart-checkout-btn" 
+              onClick={onCheckout}
+              disabled={cart.length === 0}
+            >
+              結帳 (Checkout)
+            </button>
           </div>
         )}
       </div>
